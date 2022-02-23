@@ -1,0 +1,181 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .checked {
+        color: orange;
+    }
+
+    .clr {
+        color: rgb(0, 0, 0);
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light " style="    background-color: #5b5858;">
+    <div class="container-fluid">
+        {{!-- <a class="navbar-brand" href="#">Dummy Crypto</a> --}}
+        <span class="navbar-brand" style="    color: white;
+                                                border: 3px solid;
+                                                padding: 6px 12px;
+                                                border-radius: 22px;">
+     Dummy Crypto  </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
+                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+
+                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
+                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/friends">My Friends</a>
+                </li>
+                {{!-- <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
+                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/competition">Custom</a>
+                </li> --}}
+                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
+                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/defaultContest">Global Contest</a>
+                </li>
+
+                {{!-- <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; "> --}}
+                    {{!-- <form action="/updateAll" method="get">
+                        <button type="submit">
+
+                            update all
+                        </button>
+                    </form> --}}
+                    {{!--
+                </li> --}}
+
+
+
+
+            </ul>
+            <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
+                <a class="nav-link active" aria-current="page" href="/" style="color: white;">
+               <strong>
+                {{header_Username}}
+
+               </strong>
+                </a>
+            </li>
+
+
+            <div class="d-flex align-items-center">
+
+                <div title="  0 stars :- if profit < 0
+                            1 stars :- if profit >= 0  
+                            2 stars :- if profit >= 100  
+                            3 stars :- if profit >= 200  
+                            4 stars :- if profit >= 300  
+                            5 stars :- if profit >= 400 " style="text-decoration: none;">
+                    {{#ifCond total_profit -1 }}
+                    <li class="nav-item" style="list-style: none;  ">
+                        <span class="fa fa-star clr "></span>
+                        <span class="fa fa-star clr "></span>
+                        <span class="fa fa-star clr "></span>
+                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr"></span>
+
+                    </li>
+                    {{else}}
+                    {{#ifCond total_profit 100 }}
+
+
+                    <li class="nav-item" style="list-style: none;  ">
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star clr "></span>
+                        <span class="fa fa-star clr "></span>
+                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr"></span>
+
+                    </li>
+                    {{else}}
+                    {{#ifCond total_profit 200 }}
+                    <li class="nav-item" style="list-style: none;  ">
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star clr "></span>
+                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr"></span>
+
+                    </li>
+                    {{else}}
+                    {{#ifCond total_profit 300 }}
+                    <li class="nav-item" style="list-style: none;  ">
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr"></span>
+
+                    </li>
+                    {{else}}
+                    {{#ifCond total_profit 400 }}
+                    <li class="nav-item" style="list-style: none;  ">
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star clr"></span>
+
+                    </li>
+                    {{else}}
+
+                    <li class="nav-item" style="list-style: none;  ">
+
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked "></span>
+                        <span class="fa fa-star   checked"></span>
+                        <span class="fa fa-star   checked"></span>
+                        {{/ifCond}}
+                        {{/ifCond}}
+                        {{/ifCond}}
+                        {{/ifCond}}
+                        {{/ifCond}}
+                    </li>
+
+                </div>
+
+
+
+                {{#ifEqual header_Username "--"}}
+
+                <li class="nav-item" style="list-style: none;  ">
+                    <button type="button" class="btn btn-success"
+                        style="background-color: rgb(29, 163, 11); margin: 0px 10px;  padding: 2px; ">
+                        <a class="nav-link" style="color: white;" href="/myloginpage">Login</a>
+                    </button>
+                </li>
+                {{else}}
+
+                <li class="nav-item" style="list-style: none;  ">
+                    <div class="col text-center d-sm-flex justify-content-sm-center align-items-sm-center">
+                        <form action="/logout" method="post">
+                            <button class="btn btn-danger"
+                        style=" margin: 0px 10px;  padding: 10px; ">
+                               
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {{/ifEqual}}
+                <li class="nav-item" style="list-style: none;">
+                    <button type="button" class="btn btn-primary" style="margin: 0px 10px;  padding: 2px; ">
+                        <a class="nav-link" style="color: white;" href="/myregisterpage">New Account</a>
+                    </button>
+
+
+                </li>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</nav>
