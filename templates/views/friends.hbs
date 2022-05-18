@@ -111,7 +111,7 @@
                                 <div class="card-body" style="    min-height: 400px;">
                                     <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
                                         {{!-- <table class="table" id="myTable"> --}}
-                                            <table class="table table-dark table-striped" id="example" width="100%"
+                                            <table class="table table-dark table-striped text-center" id="example" width="100%"
                                                 <thead>
                                                 <tr>
                                                     {{!-- <th class="text-center">Sr.No<br><br></th> --}}
@@ -124,7 +124,7 @@
 
                                                 </tr>
                                                 </thead>
-                                                <tbody id="tbody">
+                                                <tbody id="tbody" class="text-center">
                                                     {{#each friendList}}
 
 
@@ -141,7 +141,7 @@
 
                                                         <td style="width: 10px;">
                                                             <div>
-                                                                <form action="/showData" method="post">
+                                                                {{!-- <form action="/friends/showData" method="post">
 
                                                                     <button class="btn btn-success btn-lg" type="submit"
                                                                         name="friend_username_name_showdata" style="    margin: 0px;
@@ -150,13 +150,15 @@
                                                         font-size: 15px;" value={{this}}>
                                                                         profit ?
                                                                     </button>
-                                                                </form>
+                                                                </form> --}}
+
+                                                                -
 
                                                             </div>
                                                         </td>
                                                         <td style="width: 10px;">
                                                             <div>
-                                                                <form action="/removeFriend" method="post">
+                                                                <form action="/friends/removeFriend" method="post">
 
                                                                     <button class="btn btn-danger btn-lg" type="submit"
                                                                         name="friend_username_name" style="    margin: 0px;
@@ -191,7 +193,7 @@
 
                                 </div>
                                 <div class="card-body" style="    min-height: 400px; text-align:center;" >
-                                    <form action="/sendReq" method="POST">
+                                    <form action="/friends/sendReq" method="POST">
 
                                         <div class=" align-items-center mb-3 pb-1">
 
@@ -242,7 +244,7 @@
                                         <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
                                             {{!-- <table class="table" id="myTable"> --}}
                                                 <table class="table table-dark table-striped" id="example" width="100%">
-                                                    <thead>
+                                                    <thead class="text-center">
                                                         <tr>
                                                             {{!-- <th class="text-center">Sr.No<br><br> --}}
                                                             </th>
@@ -260,7 +262,7 @@
 
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="tbody">
+                                                    <tbody id="tbody" class="text-center">
                                                         {{#each incoming_req}}
 
 
@@ -278,7 +280,7 @@
 
                                                             <td style="width: 10px;">
                                                                 <div>
-                                                                    <form action="/acceptIncomingReq" method="post">
+                                                                    <form action="/friends/acceptIncomingReq" method="post">
 
                                                                         <button class="btn btn-success btn-lg"
                                                                             type="submit" name="incoming_req_username"
@@ -293,7 +295,7 @@
                                                             </td>
                                                             <td style="width: 10px;">
                                                                 <div>
-                                                                    <form action="/declineIncomingReq" method="post">
+                                                                    <form action="/friends/declineIncomingReq" method="post">
 
                                                                         <button class="btn btn-success btn-lg"
                                                                             type="submit" name="incoming_req_username"
@@ -332,7 +334,7 @@
                                     <div class="card-body" style="    min-height: 200px;">
                                         <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
                                             {{!-- <table class="table" id="myTable"> --}}
-                                                <table class="table table-dark table-striped   " id="example"
+                                                <table class="table table-dark table-striped text-center  " id="example"
                                                     width="100%">
                                                     <thead>
                                                         <tr>
@@ -345,7 +347,7 @@
 
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="tbody">
+                                                    <tbody id="tbody" class="text-center">
                                                         {{#each outgoing_req}}
 
 
@@ -358,7 +360,7 @@
 
                                                             <td style="width: 10px;">
                                                                 <div>
-                                                                    <form action="/removeOutgoingReq" method="post">
+                                                                    <form action="/friends/removeOutgoingReq" method="post">
 
                                                                         <button class="btn btn-danger btn-lg"
                                                                             type="submit" name="remove_username" style="    margin: 0px;

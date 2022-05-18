@@ -80,6 +80,12 @@
         .clr {
             color: rgb(0, 0, 0);
         }
+
+          @media only screen and (max-device-width: 500px) {
+            .padd {
+                padding: 0px;
+            }
+        }
     </style>
 </head>
 
@@ -94,7 +100,7 @@
 
                 <div class="container-fluid">
 
-                    <div class="row" style="margin: 30px auto;">
+                    {{!-- <div class="row" style="margin: 30px auto;">
                         <div class="table-responsive"
                             style="max-width: 50%;margin: auto;    margin-bottom: 40px; border-width: 3px;border-style: solid;border-color: white;border-radius: 25px;background: black;">
                             <table class="table" style="
@@ -117,16 +123,16 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row" style="margin: 30px auto;">
-               
-                         <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2" style="background-color: #0983a0;">
+
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-start-primary py-2" style="background-color: white;">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1">
-                                                <span style="color: white;">
+                                                <span style="color: rgb(23 163 12);">
                                                     Username
                                                 </span>
                                             </div>
@@ -134,7 +140,7 @@
                                                 <div class="col">
 
                                                     <div class="text-dark fw-bold h5 mb-0">
-                                                        <span style="color: white;">
+                                                        <span style="color: rgb(0, 0, 0);">
                                                             {{current_username}}</span>
                                                     </div>
                                                 </div>
@@ -226,17 +232,17 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2" style="background-color: #88396e;">
+                            <div class="card shadow border-start-primary py-2" style="background-color: white;">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1">
-                                                <span style="color: white;">
+                                                <span style="color: rgb(23 163 12);">
                                                     Name
                                                 </span>
                                             </div>
                                             <div class="text-dark fw-bold h5 mb-0">
-                                                <span style="color: white;">
+                                                <span style="color: rgb(0, 0, 0);">
 
                                                     {{current_name}}
                                                 </span>
@@ -246,7 +252,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-solid fa-user fa-2x text-gray-300"
-                                                style="color: white;"></i>
+                                                style="color: rgb(0, 0, 0);"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -254,20 +260,20 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-success py-2" style="background: rebeccapurple;">
+                            <div class="card shadow border-start-success py-2" style="background: white;">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span
-                                                    style="color: white;">
+                                                    style="color: rgb(23 163 12);">
                                                     Available Balance
                                                 </span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: white;">₹
+                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: rgb(0, 0, 0);">₹
                                                     {{available_balance}}</span>
                                             </div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-rupee-sign fa-2x text-gray-300"
-                                                style="color: white;"></i>
+                                                style="color: rgb(0, 0, 0);"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -277,23 +283,24 @@
 
                         <div class="col-md-6 col-xl-3 mb-4">
                             {{#ifCond total_profit -1 }}
-                            <div class="card shadow border-start-success py-2" style="background: #fa5959;">
+                            <div class="card shadow border-start-success py-2" style="background: white;">
                                 {{else}}
-                                <div class="card shadow border-start-success py-2" style="background: #23a923;">
+                                <div class="card shadow border-start-success py-2" style="background: white;">
                                     {{/ifCond}}
                                     <div class="card-body">
                                         <div class="row align-items-center no-gutters">
                                             <div class="col me-2">
                                                 <div class="text-uppercase text-success fw-bold text-xs mb-1">
-                                                    <span style="color: white;">
+                                                    <span style="color: rgb(23 163 12);">
                                                         Total Profit Gained
                                                     </span>
                                                 </div>
-                                                <div class="text-dark fw-bold h5 mb-0"><span style="color: white;">₹
+                                                <div class="text-dark fw-bold h5 mb-0"><span
+                                                        style="color: rgb(0, 0, 0);">₹
                                                         {{total_profit}}</span></div>
                                             </div>
                                             <div class="col-auto"><i class="fas fa-rupee-sign fa-2x text-gray-300"
-                                                    style="color: white;"></i>
+                                                    style="color: rgb(0, 0, 0);"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -303,24 +310,30 @@
 
                         </div>
 
-                    {{!-- </div> --}}
+                        {{!--
+                    </div> --}}
 
                     <!-- Start: Chart -->
                     <div class="row" style="margin-top: 30px;">
                         <div class="col-lg-5 col-xl-6">
-                            <div class="row">
+                            <div class="row padd">
                                 <div class="card shadow mb-4">
-                                    <div class="card-body">
+                                    <div class="card-header" style="text-align: center; background: white;">
+                                        <h4 class="fw-bold m-0" style="color: rgb(13 11 147);">Global Portfolio </h4>
+
+                                    </div>
+                                    <div class="card-body padd">
                                         {{>Cmyportfolio}}
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="col-lg-7 col-xl-6">
+                        <div class="col-lg-7 col-xl-6 padd">
                             <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Active Users </h6>
+                                <div class="card-header " style="text-align: center; background: white;">
+                                    <h4 class="fw-bold m-0" style="color: rgb(13 11 147);">Active Users</h4>
+
                                 </div>
                                 <div class="card-body" style="padding: 0px;">
                                     {{>allusers}}

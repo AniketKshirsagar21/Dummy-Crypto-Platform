@@ -4,11 +4,11 @@
 
     <div class="col ">
         <div class="container text-center ">
-            <div class="table-responsive shd" style="  
+            <div class="table-responsive " style="  
                                 border-style: solid;
-                                border-radius: 26px;
+                                border-radius: 8px;
                                 margin: 24px 0px;
-                                border-color: white;
+                                border-color: rgb(255, 255, 255);
                                 background-color: #212529;
                                 padding: 19px 12px;">
 
@@ -18,34 +18,7 @@
                             <th style="padding-bottom: 21px; font-size: 23px;">
                                 <strong>My Dashboard</strong>
                             </th>
-                            <th class="d-sm-flex justify-content-sm-center align-items-sm-center">
-                                {{#ifEqual current_username "--"}}
-                                <div class="col text-center d-sm-flex justify-content-sm-center align-items-sm-center">
-                                    {{!-- <form action="/logout" method="post"> --}}
-                                        <a class="btn btn-dark btn-lg btn-block" href="/myloginpage"
-                                            style="    background-color: rgb(29, 163, 11); padding: 2px 10px; font-size: 21px;">
-                                            Login
-                                        </a>
-                                        <a class="btn btn-dark btn-lg btn-block" href="/myregisterpage"
-                                            style="  margin-left: 8px;  background-color: rgb(29, 16, 145); padding: 2px 10px; font-size: 21px;">
-                                            New Account
-                                        </a>
-                                        {{!--
-                                    </form> --}}
-                                </div>
-                                {{else}}
-
-                                <div class="col text-center d-sm-flex justify-content-sm-center align-items-sm-center">
-                                    <form action="/logout" method="post">
-                                        <button class="btn btn-dark btn-lg btn-block"
-                                            style="    background-color: rgb(238, 88, 88); padding: 2px 10px; font-size: 21px;"
-                                            type="submit">
-                                            Logout
-                                        </button>
-                                    </form>
-                                </div>
-                                {{/ifEqual}}
-                            </th>
+                            
                         </tr>
                     </thead>
                     <tbody>

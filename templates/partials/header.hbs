@@ -8,15 +8,24 @@
     .clr {
         color: rgb(0, 0, 0);
     }
+    .clr_header {
+        color: rgb(255, 255, 255);
+    }
 </style>
-<nav class="navbar navbar-expand-lg navbar-light " style="    background-color: #5b5858;">
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light " style="    background-color: #262626;">
     <div class="container-fluid">
         {{!-- <a class="navbar-brand" href="#">Dummy Crypto</a> --}}
         <span class="navbar-brand" style="    color: white;
-                                                border: 3px solid;
+                                                border: 2px solid;
                                                 padding: 6px 12px;
-                                                border-radius: 22px;">
-     Dummy Crypto  </span>
+                                                border-radius: 12px;
+                                                font-size: 1.1rem;">
+            Dummy Crypto </span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,18 +34,19 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
-                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/">Home</a>
+                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.2rem; ">
+                    <a style="color: white;" class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
 
-                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
-                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/friends">My Friends</a>
+                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.3rem; ">
+                    <a style="color: white;" class="nav-link active" aria-current="page" href="/friends">Connections</a>
                 </li>
-                {{!-- <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
-                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/competition">Custom</a>
+                {{!-- <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.3rem; ">
+                    <a style="color: white;" class="nav-link active" aria-current="page" href="/competition">Custom</a>
                 </li> --}}
-                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
-                    <a  style="color: white;" class="nav-link active" aria-current="page" href="/defaultContest">Global Contest</a>
+                <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.3rem; ">
+                    <a style="color: white;" class="nav-link active" aria-current="page" href="/defaultContest">Global
+                        </a>
                 </li>
 
                 {{!-- <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; "> --}}
@@ -55,10 +65,10 @@
             </ul>
             <li class="nav-item" style="list-style: none; margin-left:15px; font-size:1.5rem; ">
                 <a class="nav-link active" aria-current="page" href="/" style="color: white;">
-               <strong>
-                {{header_Username}}
+                    <strong>
+                        {{header_Username}}
 
-               </strong>
+                    </strong>
                 </a>
             </li>
 
@@ -73,11 +83,11 @@
                             5 stars :- if profit >= 400 " style="text-decoration: none;">
                     {{#ifCond total_profit -1 }}
                     <li class="nav-item" style="list-style: none;  ">
-                        <span class="fa fa-star clr "></span>
-                        <span class="fa fa-star clr "></span>
-                        <span class="fa fa-star clr "></span>
-                        <span class="fa fa-star clr"></span>
-                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr_header "></span>
+                        <span class="fa fa-star clr_header "></span>
+                        <span class="fa fa-star clr_header "></span>
+                        <span class="fa fa-star clr_header"></span>
+                        <span class="fa fa-star clr_header"></span>
 
                     </li>
                     {{else}}
@@ -86,10 +96,10 @@
 
                     <li class="nav-item" style="list-style: none;  ">
                         <span class="fa fa-star   checked"></span>
-                        <span class="fa fa-star clr "></span>
-                        <span class="fa fa-star clr "></span>
-                        <span class="fa fa-star clr"></span>
-                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr_header "></span>
+                        <span class="fa fa-star clr_header "></span>
+                        <span class="fa fa-star clr_header"></span>
+                        <span class="fa fa-star clr_header"></span>
 
                     </li>
                     {{else}}
@@ -97,9 +107,9 @@
                     <li class="nav-item" style="list-style: none;  ">
                         <span class="fa fa-star   checked"></span>
                         <span class="fa fa-star   checked"></span>
-                        <span class="fa fa-star clr "></span>
-                        <span class="fa fa-star clr"></span>
-                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr_header "></span>
+                        <span class="fa fa-star clr_header"></span>
+                        <span class="fa fa-star clr_header"></span>
 
                     </li>
                     {{else}}
@@ -108,8 +118,8 @@
                         <span class="fa fa-star   checked"></span>
                         <span class="fa fa-star   checked"></span>
                         <span class="fa fa-star   checked"></span>
-                        <span class="fa fa-star clr"></span>
-                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr_header"></span>
+                        <span class="fa fa-star clr_header"></span>
 
                     </li>
                     {{else}}
@@ -119,7 +129,7 @@
                         <span class="fa fa-star   checked"></span>
                         <span class="fa fa-star   checked"></span>
                         <span class="fa fa-star   checked"></span>
-                        <span class="fa fa-star clr"></span>
+                        <span class="fa fa-star clr_header"></span>
 
                     </li>
                     {{else}}
@@ -146,8 +156,8 @@
 
                 <li class="nav-item" style="list-style: none;  ">
                     <button type="button" class="btn btn-success"
-                        style="background-color: rgb(29, 163, 11); margin: 0px 10px;  padding: 2px; ">
-                        <a class="nav-link" style="color: white;" href="/myloginpage">Login</a>
+                        style="background-color: rgb(255, 255, 255); margin: 0px 10px;  padding: 0px; ">
+                        <a class="nav-link" style="color: rgb(0, 0, 0);" href="/myloginpage">Login</a>
                     </button>
                 </li>
                 {{else}}
@@ -155,9 +165,8 @@
                 <li class="nav-item" style="list-style: none;  ">
                     <div class="col text-center d-sm-flex justify-content-sm-center align-items-sm-center">
                         <form action="/logout" method="post">
-                            <button class="btn btn-danger"
-                        style=" margin: 0px 10px;  padding: 10px; ">
-                               
+                            <button class="btn btn-danger" style=" margin: 0px 10px; background-color: rgb(255, 255, 255); color:black; padding: 7px 9px;">
+
                                 Logout
                             </button>
                         </form>
@@ -165,8 +174,8 @@
                 </li>
                 {{/ifEqual}}
                 <li class="nav-item" style="list-style: none;">
-                    <button type="button" class="btn btn-primary" style="margin: 0px 10px;  padding: 2px; ">
-                        <a class="nav-link" style="color: white;" href="/myregisterpage">New Account</a>
+                    <button type="button" class="btn btn-primary" style="margin: 0px 10px;background-color: rgb(255, 255, 255);  padding: 0px; ">
+                        <a class="nav-link" style="color: rgb(0, 0, 0);" href="/myregisterpage">New Account</a>
                     </button>
 
 

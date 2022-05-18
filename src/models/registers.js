@@ -172,18 +172,9 @@ const mySchema = new mongoose.Schema({
     number: {
         type: Number
     },
-    available_balance: {
-        type: Number
-    },
-    no_of_holdings: {
-        type: Number
-    },
-    friends: [String],
-    incoming_req: [String],
-    outgoing_req: [String],
 
-    users_contests: [String],
-    incoming_contests_req: [String],
+
+
 
     total_invested_value: {
         type: Number
@@ -191,9 +182,51 @@ const mySchema = new mongoose.Schema({
     total_current_value: {
         type: Number
     },
+    portfolio_total_profit : {
+        type: Number
+    },
+
+    emailOnOff : {
+        type: String
+    },
+
+
     total_profit: {
         type: Number
     },
+    available_balance: {
+        type: Number
+    },
+    no_of_holdings: {
+        type: Number
+    },
+    Holding: [{
+        coin_no: Number,
+        coin_symbol: String,
+        coin_name: String,
+        coin_buy_price: Number,
+        coin_number: Number,
+        coin_invested_amount: Number,
+
+        coin_current: Number,
+        coin_profit: Number
+    }],
+
+   
+
+
+
+
+
+
+    friends: [String],
+    incoming_req: [String],
+    outgoing_req: [String],
+    users_contests: [String],
+    incoming_contests_req: [String],
+
+
+
 
     C_total_invested_value: {
         type: Number
@@ -204,8 +237,6 @@ const mySchema = new mongoose.Schema({
     C_total_profit: {
         type: Number
     },
-
-
     C_available_balance: {
         type: Number
     },
@@ -227,57 +258,7 @@ const mySchema = new mongoose.Schema({
         coin_profit: Number
     }],
 
-    coin_no1: {
-        type: Number
-    },
-    coin_symbol1: {
-        type: String
-    },
-    coin_name1: {
-        type: String
-    },
-    coin_buy_price1: {
-        type: Number
-    },
-
-    coin_current1: {
-        type: Number
-    },
-    coin_number1: {
-        type: Number
-    },
-    coin_invested_amount1: {
-        type: Number
-    },
-    coin_profit1: {
-        type: Number
-    },
-
-
-    coin_no2: {
-        type: Number
-    },
-    coin_symbol2: {
-        type: String
-    },
-    coin_name2: {
-        type: String
-    },
-    coin_buy_price2: {
-        type: Number
-    },
-    coin_current2: {
-        type: Number
-    },
-    coin_number2: {
-        type: Number
-    },
-    coin_invested_amount2: {
-        type: Number
-    },
-    coin_profit2: {
-        type: Number
-    }
+    
 })
 
 const cryptoPortfolio = new mongoose.model("updatedportfolios", mySchema);
@@ -287,10 +268,11 @@ const ppp = new cryptoPortfolio({
     no_of_holdings: 0,
 
     available_balance: 10000,
+    total_profit: 4,
 
     total_invested_value: 5,
     total_current_value: 5,
-    total_profit: 4,
+    portfolio_total_profit : 0,
 
     friends: [],
     incoming_req: [],
@@ -298,23 +280,16 @@ const ppp = new cryptoPortfolio({
     users_contests: [],
     incoming_contests_req: [],
 
-    coin_no1: 1,
-    coin_symbol1: "Not",
-    coin_name1: 0,
-    coin_buy_price1: 0,
-    coin_invested_amount1: 0,
-    coin_number1: 0,
-    coin_profit1: 0,
-    coin_current1: 0,
-
-    coin_no2: 2,
-    coin_symbol2: "Not",
-    coin_name2: 0,
-    coin_buy_price2: 0,
-    coin_invested_amount2: 0,
-    coin_number2: 0,
-    coin_profit2: 0,
-    coin_current2: 0,
+    Holding: [{
+        coin_no: 21,
+        coin_symbol: "String",
+        coin_name: "String",
+        coin_buy_price: 21,
+        coin_current: 21,
+        coin_number: 21,
+        coin_invested_amount: 21,
+        coin_profit: 21
+    }],
 
 
 

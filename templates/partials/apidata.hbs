@@ -1,11 +1,11 @@
 <div class="col" style="margin-bottom: 20px; padding-right:10px;">
-    <div class="row">
+    {{!-- <div class="row">
         <div class="col text-center d-lg-flex justify-content-lg-center align-items-lg-center"
             style="padding: 10px;color: rgb(13 11 147);;height: 59.111099999999986px;margin-right: 5px;">
             <h2 class="text-center d-lg-flex justify-content-lg-center align-items-lg-center">Crypto
                 Market&nbsp;</h2>
         </div>
-    </div>
+    </div> --}}
     {{!-- <div class="row">
         <div class="col">
             <div class="row">
@@ -23,16 +23,18 @@
     {{!-- <div class="table-wrapper-scroll-y my-custom-scrollbar"></div> --}}
     {{!-- <div class="row table-wrapper-scroll-y my-custom-scrollbar"> --}}
 
-        <div class="col text-center" style="    background-color: #1c4f0a;
-                                                    border-style: solid;
+        <div class="col text-center" style="    background-color: rgb(244 243 243);
+                  
+                                                   
                                                     padding: 0%;
-                                                    color: white;
-                                                    margin-top: 20px;
+                                                    color: rgb(0, 0, 0);
+                                                    margin-right: -10px;
+                                                    margin-top: 0px;
                                                     border-radius: 10px;
-                                                    border-color: white;">
+                                                    border-color: rgb(0, 0, 0);">
             <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="    padding: 14px 2px;">
                 {{!-- <table class="table" id="myTable"> --}}
-                    <table class="table  table-dark   " id="example" width="100%">
+                    <table class="table    " id="example" width="100%">
                         <thead>
                             <tr>
                                 <th class="text-center">Rank<br><br></th>
@@ -41,7 +43,7 @@
                                 </th>
                                 <th class="one">
                                     ID<br><br></th>
-                                
+
                                 <th>
                                     Name<br><br></th>
                                 <th>
@@ -58,8 +60,10 @@
                             {{#ifCond this.percent 0}}
                             <tr class="text" style="color: rgb(218, 8, 8)">
                                 {{else}}
-                            <tr class="text" style="color: #79f082;">
+                            <tr class="text" style="color: #188d56;">
                                 {{/ifCond}}
+
+
 
 
                                 <td style="width: 10px;" id="coinrank1">{{this.rank}}</td>
@@ -76,20 +80,25 @@
                                 <td id="coinpercent1" style="width: 10px;">{{this.percent}} %</td>
                                 <td id="coincollapse1" style="width: 10px;">
                                     <div>
-                                        <form action="/BuyDataPage" method="post">
 
-                                            <button class="btn btn-success btn-lg" type="submit" name="sellCoin" style="    margin: 0px;
-                                                padding: 1px 14px;
+                                        <form action="/BuyDataPage" method="post">
+                                        <button class="btn btn-success btn-lg" type="submit" name="sellCoin" 
+                                        
+                                        
+                                        style="    margin: 0px;
+                                                padding: 1px 12px;
+                                                font-size: 1.1rem;
                                                 margin-bottom: 12px;" value={{this.idx}}>
-                                                BUY
-                                            </button>
+                                            BUY
+                                        </button>
                                         </form>
+                                      
 
                                     </div>
 
                                 </td>
 
-                            
+
                             </tr>
                             {{/each}}
 
