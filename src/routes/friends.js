@@ -46,79 +46,88 @@ var r3 = 0;
 
 
 router.route('/')
-.get(async (req, res) => {
-    try {
-        // console.log("very first " + req.session.cuser);
-        var frnds;
-        var cnoh;
-        let r5 = req.session.cuser;
-        if (req.session.cuser == "userwho") {
-            r5 = "--"
+    .get(async (req, res) => {
+        try {
+            // console.log("very first " + req.session.cuser);
+            var frnds;
+            var cnoh;
+            let r5 = req.session.cuser;
+            if (req.session.cuser == "userwho") {
+                r5 = "--";
+                res.render("friends", {
+                    header_Username: r5,
+                    total_profit: r3,
+                    // friendList: cnoh.friends,
+                    // outgoing_req: cnoh.outgoing_req,
+                    // incoming_req: cnoh.incoming_req
+                })
+            }
+            else {
+                cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
+                res.render("friends", {
+                    header_Username: r5,
+                    total_profit: r3,
+                    friendList: cnoh.friends,
+                    outgoing_req: cnoh.outgoing_req,
+                    incoming_req: cnoh.incoming_req
+                })
+            }
         }
-        cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
-        res.render("friends", {
-            header_Username: r5,
-            total_profit: r3,
-            friendList: cnoh.friends,
-            outgoing_req: cnoh.outgoing_req,
-            incoming_req: cnoh.incoming_req
-        })
-    }
-    catch (err) {
-        res.send(err);
-    }
-});
+        catch (err) {
+            res.send(err);
+        }
+    });
 
 
 
 router.route('/sendReq')
-.post(async (req, res) => {
-    try {
-        if( req.session.cuser=="userwho"){
-            res.redirect("/myloginpage");
-        }
-        var cnoh;
-        var required_user = req.body.searched_username;
-        cnoh = await cryptoPortfolio.findOne({ username: required_user });
-        if (req.body.searched_username == req.session.cuser) {
+    .post(async (req, res) => {
+        try {
+            if (req.session.cuser == "userwho") {
+                res.redirect("/myloginpage");
+            }
+            var cnoh;
+            var required_user = req.body.searched_username;
+            cnoh = await cryptoPortfolio.findOne({ username: required_user });
+            if (req.body.searched_username == req.session.cuser) {
 
-            res.send("You cant send request to your own");
-        }
-        if (cnoh == null) {
-            res.send("user dont exist");
-        }
-        else {
-            const updating1 = await cryptoPortfolio.updateOne({ username: req.session.cuser }, {
-                $addToSet: {
-                    outgoing_req: required_user
-                }
+                res.send("You cant send request to your own");
+            }
+            if (cnoh == null) {
+                res.send("user dont exist");
+            }
+            else {
+                const updating1 = await cryptoPortfolio.updateOne({ username: req.session.cuser }, {
+                    $addToSet: {
+                        outgoing_req: required_user
+                    }
+                })
+                const updating2 = await cryptoPortfolio.updateOne({ username: required_user }, {
+                    $addToSet: {
+                        incoming_req: req.session.cuser
+                    }
+                })
+            }
+            cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
+            let r5 = req.session.cuser;
+            if (req.session.cuser == "userwho") {
+                r5 = "--"
+            }
+            res.render("friends", {
+                header_Username: r5,
+                total_profit: r3,
+                friendList: cnoh.friends,
+                outgoing_req: cnoh.outgoing_req,
+                incoming_req: cnoh.incoming_req
             })
-            const updating2 = await cryptoPortfolio.updateOne({ username: required_user }, {
-                $addToSet: {
-                    incoming_req: req.session.cuser
-                }
-            })
-        }
-        cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
-        let r5 = req.session.cuser;
-        if (req.session.cuser == "userwho") {
-            r5 = "--"
-        }
-        res.render("friends", {
-            header_Username: r5,
-            total_profit: r3,
-            friendList: cnoh.friends,
-            outgoing_req: cnoh.outgoing_req,
-            incoming_req: cnoh.incoming_req
-        })
 
-    }
-    catch (err) {
-        res.send("error in sending req");
-    }
-})
+        }
+        catch (err) {
+            res.send("error in sending req");
+        }
+    })
 
-router.route('/acceptIncomingReq').post( async (req, res) => {
+router.route('/acceptIncomingReq').post(async (req, res) => {
     try {
         var cnoh;
         var required_user = req.body.incoming_req_username;
@@ -217,54 +226,54 @@ router.route('/declineIncomingReq').post(async (req, res) => {
 })
 
 router.route('/removeOutgoingReq')
-.post( async (req, res) => {
-    try {
-        var cnoh;
-        var required_user = req.body.remove_username;
-        cnoh = await cryptoPortfolio.findOne({ username: required_user });
-        if (cnoh == null) {
-            res.send("user dont exist");
-        }
-        else {
-            const updating1 = await cryptoPortfolio.findOneAndUpdate({ username: req.session.cuser }, {
+    .post(async (req, res) => {
+        try {
+            var cnoh;
+            var required_user = req.body.remove_username;
+            cnoh = await cryptoPortfolio.findOne({ username: required_user });
+            if (cnoh == null) {
+                res.send("user dont exist");
+            }
+            else {
+                const updating1 = await cryptoPortfolio.findOneAndUpdate({ username: req.session.cuser }, {
 
-                $pull: {
-                    outgoing_req: required_user
-                }
-            });
+                    $pull: {
+                        outgoing_req: required_user
+                    }
+                });
 
-            const updating2 = await cryptoPortfolio.findOneAndUpdate({ username: required_user }, {
+                const updating2 = await cryptoPortfolio.findOneAndUpdate({ username: required_user }, {
 
-                $pull: {
-                    incoming_req: req.session.cuser
-                }
+                    $pull: {
+                        incoming_req: req.session.cuser
+                    }
+                })
+            }
+            cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
+            // res.render("friends", {
+            //     friendList: cnoh.friends,
+            //     outgoing_req: cnoh.outgoing_req,
+            //     incoming_req: cnoh.incoming_req
+            // })
+            let r5 = req.session.cuser;
+            if (req.session.cuser == "userwho") {
+                r5 = "--"
+            }
+            res.render("friends", {
+                header_Username: r5,
+                total_profit: r3,
+                friendList: cnoh.friends,
+                outgoing_req: cnoh.outgoing_req,
+                incoming_req: cnoh.incoming_req
             })
-        }
-        cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
-        // res.render("friends", {
-        //     friendList: cnoh.friends,
-        //     outgoing_req: cnoh.outgoing_req,
-        //     incoming_req: cnoh.incoming_req
-        // })
-        let r5 = req.session.cuser;
-        if (req.session.cuser == "userwho") {
-            r5 = "--"
-        }
-        res.render("friends", {
-            header_Username: r5,
-            total_profit: r3,
-            friendList: cnoh.friends,
-            outgoing_req: cnoh.outgoing_req,
-            incoming_req: cnoh.incoming_req
-        })
 
-    }
-    catch (err) {
-        res.send("error in sending req");
-    }
-})
+        }
+        catch (err) {
+            res.send("error in sending req");
+        }
+    })
 
-router.route('/removeFriend').post( async (req, res) => {
+router.route('/removeFriend').post(async (req, res) => {
     try {
         var cnoh;
         var required_user = req.body.friend_username_name;

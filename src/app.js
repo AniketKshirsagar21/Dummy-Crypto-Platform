@@ -416,11 +416,12 @@ app.post("/logout", async (req, res) => {
 
 app.post("/BuyDataPage", async (req, res) => {
     try {
+        if (req.session.cuser == "userwho") { res.redirect("/myloginpage"); }
+        else {
         const cnoh = await cryptoPortfolio.findOne({ username: req.session.cuser });
         const current_no_of_holdings = cnoh.no_of_holdings;
-        if (req.session.cuser == "userwho") { res.redirect("/myloginpage"); }
 
-        else {
+        
             const index = req.body.sellCoin
             res.render("BuyDataPage", {
                 header_Username: req.session.cuser,
@@ -798,10 +799,44 @@ async function updating() {
 
 
         }
+
+        const updating12 = await cryptoPortfolio.findOne({ username: "Aniket21" });
+        if(updating12.emailOnOff == "ON"){
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'dummycrypto2@gmail.com',
+                    pass: 'Dummy@123'
+                }
+            });
+            var mailOptions = {
+                from: 'dummycrypto2@gmail.com',
+                // to: cnoh.email,
+                to: 'anujsherma21@gmail.com',
+                subject: `Updated all`,
+                text: `Updated all at ${new Date} `,
+               
+            };
+    
+            const as = await transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error.message);
+    
+                } else {
+                    console.log('uodate Email sent: ' + info.response);
+                }
+            });
+        }
+
+
+
+      
+
+
         console.log("updated All Data")
     }
     catch (err) {
-        console.log("er bro")
+        console.log(err)
     }
 }
 
@@ -927,7 +962,7 @@ async function scheduleReset() {
 }
 
 scheduleReset();
-setInterval(updating, 3600000);
+setInterval(updating, 120000);
 
 const port = process.env.PORT || '8880';
 app.listen(port, ["192.168.56.1", "localhost"], () => {
