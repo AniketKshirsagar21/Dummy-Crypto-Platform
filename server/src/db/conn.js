@@ -22,7 +22,7 @@
 
 const mongoose = require('mongoose');
 const url = "mongodb+srv://aniketkk21:aniketkk21@cluster0.gdtwc.mongodb.net/mydb3?retryWrites=true&w=majority"
-
+const p = "ok";
 mongoose.connect(url)
     .then(() => console.log("Database connection successfull "))
     .catch((err) => {
