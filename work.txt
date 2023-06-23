@@ -1,0 +1,21 @@
+defaultContest.hbs    -> globalPortfolio
+friends.hbs  -> connection.hbs
+competition.hbs    --> hidden file
+Cmyportfolio.hbs   --> myglobalPortfolio
+
+
+
+contestModel.js    --> no use right now
+registers.js    --> user_data
+
+
+defaultContest.js   --> globalcontest
+all sub routs
+
+
+friends.js   --> connections.js
+all sub routs
+
+
+
+

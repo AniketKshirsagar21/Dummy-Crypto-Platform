@@ -1,0 +1,76 @@
+
+
+<div class="row ">
+
+    <div class="col ">
+        <div class="container text-center ">
+            <div class="table-responsive " style="  
+                                border-style: solid;
+                                border-radius: 8px;
+                                margin: 24px 0px;
+                                border-color: rgb(255, 255, 255);
+                                background-color: #212529;
+                                padding: 19px 12px;">
+
+                <table class="table table-dark table striped">
+                    <thead>
+                        <tr>
+                            <th style="padding-bottom: 21px; font-size: 23px;">
+                                <strong>My Dashboard</strong>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Username :-</td>
+                            <td>
+                                <div class="input-group">
+
+
+                                    <input readonly class="form-control" name="current_username" type="text"
+                                        style="background: #212529; color :rgb(231 255 98);
+            font-size: 19px;font-weight: bold; border-width:2px; border-style: solid; border-color:rgb(0, 0, 0); align-items: center; text-align: center; justify-content: center;"
+                                        value={{current_username}}>
+
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name :- </td>
+                            <td style="color: rgb(231 255 98);">
+                                <strong>
+                                    {{current_name}}
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Available Balance</td>
+                            <td style="color: rgb(68 211 9);;">
+                                <strong>
+                                    ₹ {{available_balance}}
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Profit gained</td>
+                            {{#ifCond total_profit 0}}
+                            <td style="color: rgb(226, 79, 11);"> <strong>
+                                    ₹ {{total_profit}}
+
+                                </strong>
+                            </td>
+                            {{else}}
+                            <td style="color: rgb(52, 202, 52);"><strong>
+                                    ₹ {{total_profit}}
+
+                                </strong> </td>
+                            {{/ifCond}}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

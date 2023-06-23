@@ -1,0 +1,98 @@
+<div class="container" style="
+    padding: 0px;
+">
+    <div class="col" style="margin-bottom: 20px; padding-right:10px;">
+        {{!-- <div class="row">
+            <div class="col text-center d-lg-flex justify-content-lg-center align-items-lg-center"
+                style="padding: 10px;color: rgb(98 255 124);height: 59.111099999999986px;margin-right: 5px;">
+                <h2 class="text-center d-lg-flex justify-content-lg-center align-items-lg-center">All 
+                    Users&nbsp;</h2>
+            </div>
+        </div> --}}
+
+        <div class="col text-center" style="    background-color: rgb(244 243 243);
+                                                    
+                                                    padding: 0%;
+                                                    color: rgb(0, 0, 0);
+                                                   margin-right: -10px;
+                                                    margin-top: 0px;
+                                                    border-radius: 10px;
+                                                    border-color: rgb(0, 0, 0);
+                                                    ">
+            <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="    padding: 14px 2px;     margin-bottom: 40px;">
+
+                <table class="table  " id="example" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Rank<br><br></th>
+                            <th>
+                                Username<br><br>
+                            </th>
+                            <th class="one">
+                                Name <br><br></th>
+{{!-- 
+                            <th>
+                                Total active <br>contest profit<br></th> --}}
+                                <th class="sorting_desc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="
+                                                Total active profit: activate to sort column ascending" style="width: 78px;" aria-sort="descending">
+                                                Total active <br>profit<br></th>
+                            <th>
+                                Total gained<br> profit</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        {{#each userlist}}
+
+                        {{#ifEqual this.username "userwho"}}
+
+                        {{else}}
+
+                       
+                       
+                        <tr class="text" >
+                            
+
+
+                            <td style="width: 10px;" id="coinrank1">{{@index}}</td>
+                            <td style="width: 10px;" id="coinrank1">
+
+                                {{this.username}}
+
+                            </td>
+                            <td class="one" id="coinid1" style="width: 10px;">{{this.fname}} 
+                                {{this.lname}} </td>
+                            
+                            <td id="coinprice1" style="width: 10px;">{{this.C_portfolio_total_profit}}
+
+                            </td>
+                            <td id="coinpercent1" style="width: 10px;">{{this.C_total_profit}}</td>
+                            
+
+                        </tr>
+                        {{/ifEqual}}
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+       
+        $(document).ready(function () {
+            $('#example').DataTable(
+                 
+            );
+        });
+
+    </script>
