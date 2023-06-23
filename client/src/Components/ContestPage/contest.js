@@ -8,37 +8,33 @@ import jwt_decode from 'jwt-decode';
 import AllUsers from './AllUsers';
 
 import { SharedStateProvider } from '../../context/ContextProvider';
+import { ContestPageData } from '../../Services/API';
 
 const Contest = () => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    let mytoken = localStorage.getItem('mytoken');
-    console.log("Contest = ", mytoken)
 
-    fetch("http://localhost:8880/contest", {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${mytoken}`
-      },
-    })
-      .then((resp) => resp.json())
-      .then((result) => {
-        setData(result);
-        console.log("result -> ", result);
-        // localStorage.setItem("mytoken" , result.token)
+    const getData = async () => {
+      const ReqData = await ContestPageData();
+      console.log("ReqData", ReqData)
+      if (ReqData) {
+        setData(ReqData);
+        localStorage.setItem("mytoken", ReqData.token)
+      }
+      else {
+        console.log("Unable to get ContestPageData => ", ReqData)
+      }
+    }
+    getData();
 
-      })
-      .catch((e) => console.log("aniket ", e));
   }, []);
 
   return (
     <>
       <div id="content">
         {data.dashboard_data == undefined ?
-          null
+          <div className="loader">Loading...</div>
           :
           <Header user={{ username: data.username, total_profit: data.dashboard_data.total_profit }} />
         }
@@ -48,7 +44,7 @@ const Contest = () => {
           {data.marquee && 1 ? (
             <Marquee data={data.marquee} />
           ) :
-            <h1>Marquee Loading</h1>
+            null
           }
 
           <div className="row">
@@ -59,7 +55,7 @@ const Contest = () => {
                   {data.dashboard_data != undefined ? (
                     <UserDashboard data={data.dashboard_data} />
                   ) :
-                    <h1>Dashboard Loading</h1>
+                    null
                   }
 
                   <div className="col-lg-5 col-xl-6">
@@ -67,7 +63,7 @@ const Contest = () => {
                       {data.contest_data != undefined ?
                         <CMP data={data.contest_data} />
                         :
-                        <h3>Contest data Loading</h3>
+                        null
 
                       }
                     </div>
@@ -83,7 +79,8 @@ const Contest = () => {
 
                   <AllUsers data={{ all_user_data: data.all_user_data, username: data.username }} />
                   :
-                  <h3>Api data Loading</h3>}
+                  null
+                }
 
               </div>
             </div>

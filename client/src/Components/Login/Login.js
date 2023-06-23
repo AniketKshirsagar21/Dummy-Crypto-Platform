@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header_Footer/Header';
-
+import { LoginApi } from '../../Services/API';
 function Login() {
     const navigate = useNavigate();
     const [data, setData] = useState({
@@ -18,10 +18,10 @@ function Login() {
         let mytoken = localStorage.getItem('mytoken');
         let username1 = "--";
         if (mytoken != "no" && mytoken != undefined) {
-           username1 = jwt_decode(mytoken).username1;
+            username1 = jwt_decode(mytoken).username1;
         }
-        setData({...data,username : username1})
-        
+        setData({ ...data, username: username1 })
+
         if (data.loggedin)
             navigate('/');
     }, [])
@@ -41,52 +41,44 @@ function Login() {
     //     })
     // }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // alert(this.state.enterPassword);
 
         let postData = {
             entered_username: data.enterUsername,
             entered_password: data.enterPassword
         }
-        fetch("http://localhost:8880/login", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData)
-        }).then((resp) => {
-            resp.json().then((result) => {
 
-                console.log("data got from post request -> ", result)
-                if (result.invalid_msg === "Correct") {
-                    console.log("Correct credentials = ",result)
-                    localStorage.setItem("mytoken", result.token);
-                    const decodedToken = jwt_decode(result.token);
-                    console.log("token name ", decodedToken)
 
-                    setData({
-                        ...data,
-                        loggedin: true
-                    })
+        const result = await LoginApi(postData);
 
-                    // navigate('/')
-                }
-                else if (result.invalid_msg === "Invalid Username" || result.invalid_msg === "Invalid Password") {
-                    console.log(result.invalid_msg);
-                    localStorage.setItem("mytoken", "no");
-                    setData({
-                        ...data,
-                        invalid_msg: result.invalid_msg
-                    })
-                }
-            })
-        })
-            .catch((e) =>
-                console.log("error in login ", e)
-            )
+        if (result) {
+            console.log("data got from post request -> ", result)
+            if (result.invalid_msg === "Correct") {
+                console.log("Correct credentials = ", result)
+                localStorage.setItem("mytoken", result.token);
+                const decodedToken = jwt_decode(result.token);
+                console.log("token name ", decodedToken)
+
+                setData({
+                    ...data,
+                    loggedin: true
+                })
+
+                navigate('/')
+            }
+            else if (result.invalid_msg === "Invalid Username" || result.invalid_msg === "Invalid Password") {
+                console.log(result.invalid_msg);
+                localStorage.setItem("mytoken", "no");
+                setData({
+                    ...data,
+                    invalid_msg: result.invalid_msg
+                })
+            }
+        }
+        else {
+            console.log("Unable to get HomePageData => ", result)
+        }
     }
 
     if (data.loggedin === true)
@@ -100,7 +92,7 @@ function Login() {
     return (
         <>
             <Header user={{ username: data.username, total_profit: 0 }} />
-            
+
             <section>
                 <div className="container py-5 h-100">
                     <div className="row  justify-content-center align-items-center h-100">

@@ -1,50 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useSharedState } from '../../context/ContextProvider';
 import { Toast } from 'react-bootstrap';
-
+import { Contest_Selling_coin } from '../../Services/API';
 const CMP = (props) => {
   const { Holdings, updateHoldings } = useSharedState();
   const { updateAvailableBalance, available_balance } = useSharedState();
   const { updateTotalProfit, total_profit } = useSharedState();
 
-  console.log('CMP = ',props);
+  console.log('CMP = ', props);
   const [sellData, setSellData] = useState();
 
-  const sellCoin = async (coin_symbol,coin_current) => {
+  const sellCoin = async (coin_symbol, coin_current) => {
     let data = {
       coin_symbol: coin_symbol,
       coin_current: coin_current
     }
 
     let mytoken = localStorage.getItem('mytoken');
-    fetch("http://localhost:8880/contest_selling_coin", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${mytoken}`
-      },
-      body: JSON.stringify(data)
-    })
-      .then((resp) => resp.json())
-      .then((result) => {
-        console.log("Sell Coin -> ", result);
-        if (result.error == 0) {
-          updateHoldings(result.contestHolding)
-          updateAvailableBalance(result.available_balance)
-          updateTotalProfit(result.total_profit)
-        }
-        else if (result.error == 1) {
-          console.log("sell error :- ", result.msg)
-          setSellData(result);
-        }
-      })
-      .catch((e) => console.log("aniket ", e));
+
+    const result = await Contest_Selling_coin(data);
+
+    if (result) {
+      console.log("Sell Coin -> ", result);
+      if (result.error == 0) {
+        updateHoldings(result.contestHolding)
+        updateAvailableBalance(result.available_balance)
+        updateTotalProfit(result.total_profit)
+      }
+      else if (result.error == 1) {
+        console.log("sell error :- ", result.msg)
+        setSellData(result);
+      }
+    }
+    else {
+      console.log("Unable to get HomePageData => ", result)
+    }
+
   }
   useEffect(() => {
     if (Holdings == undefined) {
       updateHoldings(props.data.contestHoldings)
-      console.log("set = ",Holdings)
+      console.log("set = ", Holdings)
     }
   }, [Holdings, available_balance, total_profit, sellCoin]);
 
@@ -63,14 +59,14 @@ const CMP = (props) => {
             <div className="justify-content-center align-items-center h-100" style={{ marginTop: '30px' }}>
               <div className="alert alert-danger" role="alert" >
                 <h4 className="alert-heading">{sellData.msg}</h4>
-                  <button
-                    className="btn btn-success btn-lg btn-block"
-                    style={{ backgroundColor: '#b10707' }}
-                    onClick={()=>{setSellData()}}
-                    type="submit"
-                  >
-                    OK
-                  </button>
+                <button
+                  className="btn btn-success btn-lg btn-block"
+                  style={{ backgroundColor: '#b10707' }}
+                  onClick={() => { setSellData() }}
+                  type="submit"
+                >
+                  OK
+                </button>
                 <hr />
               </div>
             </div>
@@ -141,7 +137,7 @@ const CMP = (props) => {
                             <td>
                               <div>
                                 <button
-                                  onClick={() => sellCoin(post.coin_symbol,post.coin_current)}
+                                  onClick={() => sellCoin(post.coin_symbol, post.coin_current)}
                                   className="btn btn-success btn-lg"
                                   type="submit"
                                   name="arrayIndex"

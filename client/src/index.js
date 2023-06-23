@@ -6,16 +6,12 @@ import Login from './Components/Login/Login.js'
 import Register from './Components/Login/Register'
 import BuyCoin from './Components/buyPage/BuyCoinPage.js'
 import { Routes, Route } from 'react-router-dom'
-import DatatablePage from './Components/API/temp'
 import History from './Components/History/history';
-import MainComponent from './context/main';
 import Contest from './Components/ContestPage/contest';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <BaseComp /> */}
-
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,11 +19,8 @@ root.render(
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/History" element={<History />} />
-        <Route path="/gg" element={<DatatablePage />} />
         <Route path="/buyCoin/:type" element={<BuyCoin />} />
-        {/* <Route path="/context" element={<MainComponent />} /> */}
       </Routes>
-      {/* <Home /> */}
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,7 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header_Footer/Header';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { RegisterApi } from '../../Services/API';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -12,57 +13,57 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission
         console.log(firstName, lastName, username, password, email);
         let postData = {
-            fname: firstName, 
-            lname: lastName, 
-            Choosen_username: username, 
-            Choosen_password: password, 
+            fname: firstName,
+            lname: lastName,
+            Choosen_username: username,
+            Choosen_password: password,
             myemail: email,
-            username : "--"
+            username: "--"
         }
-        fetch("http://localhost:8880/register", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData)
-        }).then((resp) => {
-            resp.json().then((result) => {
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,16}$/;
+        if(username.length < 3){
+            alert("Username should contain atleast 3 characters")
+            return;
+        }
+        else if (!passwordRegex.test(password)) {
+            alert('Password should be 8 characters long and contain at least one letter and one number');
+            return;
+        }
 
-                console.log("data got from register request -> ", result)
-                if (result.msg === "Correct") {
-                    console.log("Correct credentials")
-                    localStorage.setItem("mytoken", result.token);
-                    const decodedToken = jwt_decode( result.token);
-                    console.log("token name " , decodedToken)
-                    
+        const result = await RegisterApi(postData);
 
-                    navigate('/')
-                }
-                else{
-                    alert(result.msg);
-                    localStorage.setItem("mytoken", "no");
-                }
-            })
-        })
-            .catch((e) =>
-                console.log("error in login ", e)
-            )
+        if (result) {
+            console.log("data got from register request -> ", result)
+            if (result.msg === "Correct") {
+                console.log("Correct credentials")
+                localStorage.setItem("mytoken", result.token);
+                const decodedToken = jwt_decode(result.token);
+                console.log("token name ", decodedToken)
+                navigate('/')
+            }
+            else {
+                alert(result.msg);
+                localStorage.setItem("mytoken", "no");
+            }
+        }
+        else {
+            console.log("Unable to get HomePageData => ", result)
+        }
     };
 
     useEffect(() => {
         let mytoken = localStorage.getItem('mytoken');
         let username1 = "--";
         if (mytoken != "no" && mytoken != undefined) {
-           username1 = jwt_decode(mytoken).username1;
+            username1 = jwt_decode(mytoken).username1;
         }
         setCurrUsername(username1)
-    
+
     }, [])
 
     return (
@@ -99,7 +100,6 @@ const Register = () => {
                                                 <div className="form-outline">
                                                     <label className="form-label" htmlFor="lastName">Last Name</label>
                                                     <input
-                                                        required
                                                         type="text"
                                                         placeholder="Enter last name"
                                                         id="lastName"
@@ -126,12 +126,6 @@ const Register = () => {
                                                         value={username}
                                                         onChange={(e) => setUsername(e.target.value)}
                                                     />
-                                                    {/* Render conditionally based on `notavailable` value */}
-                                                    {/* {notavailable === 'Username not available' ? (
-                            <label className="form-label" style={{ color: '#ff3636' }} htmlFor="lastName">
-                              {notavailable}
-                            </label>
-                          ) : null} */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-4">

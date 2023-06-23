@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSharedState } from '../../context/ContextProvider';
 import { Toast } from 'react-bootstrap';
+import { Selling_coin } from '../../Services/API';
 
 const MP = (props) => {
   const { Holdings, updateHoldings } = useSharedState();
@@ -10,36 +11,30 @@ const MP = (props) => {
   console.log('Rendering Component1');
   const [sellData, setSellData] = useState();
 
-  const sellCoin = async (coin_symbol,coin_current) => {
+  const sellCoin = async (coin_symbol, coin_current) => {
     let data = {
       coin_symbol: coin_symbol,
       coin_current: coin_current
     }
 
-    let mytoken = localStorage.getItem('mytoken');
-    fetch("http://localhost:8880/selling_coin", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${mytoken}`
-      },
-      body: JSON.stringify(data)
-    })
-      .then((resp) => resp.json())
-      .then((result) => {
-        console.log("Sell Coin -> ", result);
-        if (result.error == 0) {
-          updateHoldings(result.Holdings)
-          updateAvailableBalance(result.available_balance)
-          updateTotalProfit(result.total_profit)
-        }
-        else if (result.error == 1) {
-          console.log("sell error :- ", result.msg)
-          setSellData(result);
-        }
-      })
-      .catch((e) => console.log("aniket ", e));
+    const ReqData = await Selling_coin(data);
+    console.log("ReqData", ReqData)
+    if (ReqData) {
+      console.log("Sell Coin -> ", ReqData);
+      if (ReqData.error == 0) {
+        updateHoldings(ReqData.Holdings)
+        updateAvailableBalance(ReqData.available_balance)
+        updateTotalProfit(ReqData.total_profit)
+      }
+      else if (ReqData.error == 1) {
+        console.log("sell error :- ", ReqData.msg)
+        setSellData(ReqData);
+      }
+    }
+    else {
+      console.log("Unable to get HomePageData => ", ReqData)
+    }
+
   }
   useEffect(() => {
     if (Holdings == undefined) {
@@ -63,14 +58,14 @@ const MP = (props) => {
             <div className="justify-content-center align-items-center h-100" style={{ marginTop: '30px' }}>
               <div className="alert alert-danger" role="alert" >
                 <h4 className="alert-heading">{sellData.msg}</h4>
-                  <button
-                    className="btn btn-success btn-lg btn-block"
-                    style={{ backgroundColor: '#b10707' }}
-                    onClick={()=>{setSellData()}}
-                    type="submit"
-                  >
-                    OK
-                  </button>
+                <button
+                  className="btn btn-success btn-lg btn-block"
+                  style={{ backgroundColor: '#b10707' }}
+                  onClick={() => { setSellData() }}
+                  type="submit"
+                >
+                  OK
+                </button>
                 <hr />
               </div>
             </div>
@@ -141,7 +136,7 @@ const MP = (props) => {
                             <td>
                               <div>
                                 <button
-                                  onClick={() => sellCoin(post.coin_symbol,post.coin_current)}
+                                  onClick={() => sellCoin(post.coin_symbol, post.coin_current)}
                                   className="btn btn-success btn-lg"
                                   type="submit"
                                   name="arrayIndex"

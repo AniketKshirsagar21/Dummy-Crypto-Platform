@@ -3,44 +3,36 @@ import MP from '../Dashboard/MP.js'
 import ApiData from '../API/apiData'
 import Marquee from '../Header_Footer/marquee.js';
 import UserDashboard from '../Dashboard/userDashboard';
-import './home.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import '../Header_Footer/loader-animation.css'
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import jwt_decode from 'jwt-decode';
 
 import Header from '../Header_Footer/Header.js';
 
 import { SharedStateProvider } from '../../context/ContextProvider';
+import { HomePageData } from '../../Services/API.js';
 
 const Home = () => {
   const [data, setData] = useState({});
-
   useEffect(() => {
-    let mytoken = localStorage.getItem('mytoken');
-    console.log("Home = ", mytoken)
-
-    fetch("http://localhost:8880/", {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${mytoken}`
-      },
-    })
-      .then((resp) => resp.json())
-      .then((result) => {
-        setData(result);
-        console.log("result -> ", result);
-        localStorage.setItem("mytoken", result.token)
-
-      })
-      .catch((e) => console.log("aniket ", e));
+    const getData = async () => {
+      const ReqData = await HomePageData();
+      if (ReqData) {
+        setData(ReqData);
+        localStorage.setItem("mytoken", ReqData.token)
+      }
+      else{
+        console.log("Unable to get HomePageData => ", ReqData)
+      }
+    }
+    getData();
   }, []);
 
   return (
     <>
       <div id="content">
         {data.dashboard_data == undefined ?
-          null
+          <div className="loader">Loading...</div>
           :
           <Header user={{ username: data.username, total_profit: data.dashboard_data.total_profit }} />
         }
@@ -49,7 +41,7 @@ const Home = () => {
           {data.marquee && 1 ? (
             <Marquee data={data.marquee} />
           ) :
-            <h1>Marquee Loading</h1>
+            null
           }
 
           <div className="row">
@@ -60,7 +52,7 @@ const Home = () => {
                   {data.dashboard_data != undefined ? (
                     <UserDashboard data={data.dashboard_data} />
                   ) :
-                    <h1>Dashboard Loading</h1>
+                    null
                   }
 
                   <div className="col-lg-5 col-xl-6">
@@ -69,7 +61,7 @@ const Home = () => {
                       {data.main_data != undefined ?
                         <MP data={data.main_data} />
                         :
-                        <h3>Main data Loading</h3>
+                        null
                       }
 
                     </div>
@@ -82,7 +74,9 @@ const Home = () => {
 
                   <ApiData data={{ apidata: data.apidata, username: data.username }} />
                   :
-                  <h3>Api data Loading</h3>}
+                  null
+    
+                  }
 
               </div>
             </div>

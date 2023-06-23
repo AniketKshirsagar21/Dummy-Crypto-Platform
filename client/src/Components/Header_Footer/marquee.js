@@ -11,7 +11,13 @@ const Marquee = (props) => {
                 id="marq"
                 behavior="alternate"
                 direction="left"
-                className="marqueestyle"
+                className="marqueestyle" style={{
+                    background: "black",
+                    color: "#dbe0d5",
+                    fontSize: "1rem",
+                    padding: "3px",
+                    margin: "5px"
+                }}
             >
                 <span className="marqueetext">
                     {props.data.market_cap_change_24h < 0 ? (

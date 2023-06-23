@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import jwt_decode from 'jwt-decode';
 
 import { useNavigate } from 'react-router-dom';
+import { BuyPageData, BuyThatCoin ,BuyThatCoinForContest} from '../../Services/API';
 // msg: "Invalid User"
 // msg: "User Not Found"
 // msg: "limit over"
@@ -30,34 +31,23 @@ const BuyPage = (props) => {
             alert("Not enough Balanace")
             return;
         }
-
         const tosend = {
             coin_data: pageData.coin_data,
             Amount: Amount
         }
-
-        let mytoken = localStorage.getItem("mytoken")
-        fetch("http://localhost:8880/buyCoin", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${mytoken}`
-            },
-            body: JSON.stringify(tosend)
-        })
-            .then((resp) => resp.json())
-            .then((result) => {
-                console.log("buy msg -> ", result);
-                if (result.data.error == 0) {
-                    navigate('/')
-                }
-                else {
-                    alert("Unable to buy this Coin")
-                }
-            })
-            .catch((e) => console.log("error in getting info from buydatapage ", e));
-
+        const tt = await BuyThatCoin(tosend);
+        if (tt) {
+            console.log("buy msg -> ", tt);
+            if (tt.data.error == 0) {
+                navigate('/')
+            }
+            else {
+                alert("Unable to buy this Coin")
+            }
+        }
+        else {
+            console.log("Unable to get Buy => ", tt)
+        }
     }
 
     const buyThatCoinForContest = async () => {
@@ -72,53 +62,37 @@ const BuyPage = (props) => {
             Amount: C_Amount
         }
 
-        let mytoken = localStorage.getItem("mytoken")
-        fetch("http://localhost:8880/buyCoinContest", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${mytoken}`
-            },
-            body: JSON.stringify(tosend)
-        })
-            .then((resp) => resp.json())
-            .then((result) => {
-                console.log("buy msg -> ", result);
-                if (result.data.error == 0) {
-                    navigate('/Contest')
-                }
-                else {
-                    alert("Unable to buy this Coin")
-                }
-            })
-            .catch((e) => console.log("error in getting info from buydatapage ", e));
-
+        const tt = await BuyThatCoinForContest(tosend);
+        if (tt) {
+            console.log("buy msg -> ", tt);
+            if (tt.data.error == 0) {
+                navigate('/contest')
+            }
+            else {
+                alert("Unable to buy this Coin")
+            }
+        }
+        else {
+            console.log("Unable to get Buy => ", tt)
+        }
     }
 
 
     useEffect(() => {
-        let mytoken = localStorage.getItem('mytoken');
-
         const tosend = {
             coin_name: coin_name,
         }
-        fetch("http://localhost:8880/buydatapage", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${mytoken}`
-            },
-            body: JSON.stringify(tosend)
-        })
-            .then((resp) => resp.json())
-            .then((result) => {
-                set_page_data(result.data);
-                console.log("buy data  -> ", result.data);
-            })
-            .catch((e) => console.log("error in getting info from buydatapage ", e));
-
+        const getData = async () => {
+            const ReqData = await BuyPageData(tosend);
+            console.log("ReqData", ReqData)
+            if (ReqData) {
+                set_page_data(ReqData.data);
+            }
+            else {
+                console.log("Unable to get BuyPageData => ", ReqData)
+            }
+        }
+        getData();
 
     }, []);
     if (pageData === undefined) {

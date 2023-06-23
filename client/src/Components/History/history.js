@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import Header from '../Header_Footer/Header';
+import { HistoryPageData } from '../../Services/API'
 const History = () => {
   const [data, setData] = useState();
   const [userdata, setUserData] = useState();
   useEffect(() => {
-    let mytoken = localStorage.getItem('mytoken');
-    fetch("http://localhost:8880/history", {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${mytoken}`
-      },
-    })
-      .then((resp) => resp.json())
-      .then((result) => {
-        setData(result.History.reverse());
-        setUserData({username :  result.username, total_profit : result.total_profit})
-        console.log("History -> ", result); 
-      })
-      .catch((e) => console.log("History error ", e));
+    const getData = async () => {
+      const ReqData = await HistoryPageData();
+      console.log("ReqData", ReqData)
+      if (ReqData) {
+        setData(ReqData.History.reverse());
+        setUserData({ username: ReqData.username, total_profit: ReqData.total_profit })
+        console.log("History -> ", ReqData);
+      }
+      else {
+        console.log("Unable to get HistoryPageData => ", ReqData)
+      }
+    }
+    getData();
   }, [])
   const formatDate = (utcDateString) => {
     const utcDate = new Date(utcDateString);
@@ -44,7 +42,7 @@ const History = () => {
       {userdata != undefined ?
         <Header user={{ username: userdata.username, total_profit: userdata.total_profit }} />
         :
-        null
+        <div className="loader">Loading...</div>
       }
       <Table className="table" style={{ width: "70%", margin: "40px auto", border: "1px solid black" }}>
         <thead>
