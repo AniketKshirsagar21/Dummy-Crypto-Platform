@@ -11,9 +11,10 @@ const { redirect } = require('express/lib/response');
 const router = require('express').Router();
 
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config()
 require('./db/conn');
-
+let name = process.env.NAME;
+console.log("Env = ",process.env.NAME);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
